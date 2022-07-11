@@ -1,0 +1,7 @@
+name: RTUCommandControl
+version: '${version}'
+main: com.github.ipecter.rtu.commandcontrol.RTUCommandControl
+api-version: 1.13
+softdepend: [ PlaceholderAPI ]
+authors: [ IPECTER ]
+description: RTU PLUGINS - Controling Available Command, TabComletion Plugin
