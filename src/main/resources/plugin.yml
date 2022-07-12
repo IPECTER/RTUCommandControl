@@ -3,5 +3,19 @@ version: '${version}'
 main: com.github.ipecter.rtu.commandcontrol.RTUCommandControl
 api-version: 1.13
 softdepend: [ PlaceholderAPI ]
-authors: [ IPECTER ]
+authors: [ IPECTER (이팩터) ]
 description: RTU PLUGINS - Controling Available Command, TabComletion Plugin
+website: https://github.com/IPECTER/RTUCommandControl
+commands:
+  rtucc:
+    usage: /rtucc reload
+    description: /rtucc reload
+permissions:
+  rtucc.bypass.send:
+    description: Command TabComplete
+  rtucc.bypass.preprocess:
+    description: Command Process
+  rtucc.reload:
+    description: Pugin reload
+  rtucc.default:
+    default: true

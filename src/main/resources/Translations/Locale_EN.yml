@@ -1,0 +1,4 @@
+prefix: ""
+reloadMsg: "&aCompleted reloading config"
+commandWrongUsage: "&cWrong Usage&7, &fUse /rtucc reload"
+noPermission: "&cYou don't have permission"

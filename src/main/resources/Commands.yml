@@ -1,0 +1,17 @@
+commands:
+  #rtucc.default (Default Enabled) = rtucc.default
+  #rtucc.default *(기본적으로 활성화되어있음) = rtucc.default
+  default:
+    #also need permission for using this command
+    #또한 이 명령어를 사용하기 위한 권한이 필요합니다
+    - menu
+    - menu2
+  #need rtucc.custom permission = rtucc.custom
+  #권한 rtucc.custom 이 필요함 = rtucc.custom
+  custom:
+    #also need permission for using this command
+    #또한 이 명령어를 사용하기 위한 권한이 필요합니다
+    - ban
+  worldedit:
+    - /wand
+    - /copy
