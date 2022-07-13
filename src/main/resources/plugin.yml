@@ -16,6 +16,6 @@ permissions:
   rtucc.bypass.preprocess:
     description: Command Process
   rtucc.reload:
-    description: Pugin reload
+    description: Plugin reload
   rtucc.default:
     default: true
