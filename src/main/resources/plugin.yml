@@ -18,5 +18,6 @@ permissions:
     description: Command Process
   rtucc.reload:
     description: Plugin reload
+    default: op
   rtucc.default:
     default: true
