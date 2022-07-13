@@ -16,6 +16,7 @@ public class PlayerCommandPreprocess implements Listener {
 
     @EventHandler
     public void onPreprocessCmd(PlayerCommandPreprocessEvent e) {
+        if (!configManager.isEnablePlugin()) return;
         Player player = e.getPlayer();
         if (player.hasPermission("rtucc.bypass.process")) return;
 

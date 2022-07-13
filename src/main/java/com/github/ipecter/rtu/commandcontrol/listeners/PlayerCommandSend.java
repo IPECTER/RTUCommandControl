@@ -10,8 +10,11 @@ import java.util.*;
 
 public class PlayerCommandSend implements Listener {
 
+    private ConfigManager configManager = ConfigManager.getInstance();
+
     @EventHandler
     public void onSendCmd(PlayerCommandSendEvent e) {
+        if (!configManager.isEnablePlugin()) return;
         Player player = e.getPlayer();
         if (player.hasPermission("rtucc.bypass.send")) return;
 

@@ -14,12 +14,13 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        if (!configManager.isEnablePlugin()) return;
         Player player = e.getPlayer();
         if (configManager.isMotd()) {
-            player.sendMessage(configManager.getPrefix() + util.formattedStr(player, "&fRTU CommandControl developed by IPECTER"));
+            player.sendMessage(util.formattedStr(player, configManager.getPrefix() + util.formattedStr(player, "&fRTU CommandControl developed by IPECTER")));
         } else {
             if (player.isOp())
-                player.sendMessage(configManager.getPrefix() + util.formattedStr(player, "&fRTU CommandControl developed by IPECTER"));
+                player.sendMessage(util.formattedStr(player, configManager.getPrefix() + util.formattedStr(player, "&fRTU CommandControl developed by IPECTER")));
         }
     }
 }
