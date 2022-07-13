@@ -10,6 +10,7 @@ commands:
   rtucc:
     usage: /rtucc reload
     description: /rtucc reload
+    permission: rtucc.reload
 permissions:
   rtucc.bypass.send:
     description: Command TabComplete
