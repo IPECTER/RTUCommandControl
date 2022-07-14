@@ -18,7 +18,7 @@ public final class RTUCommandControl extends JavaPlugin {
     public void onEnable() {
         try {
             RTUUtilAPI.init(this);
-            Bukkit.getLogger().info(RTUUtilAPI.getTextManager().colored(prefix + "&aEnable&f!"));
+            Bukkit.getLogger().info(RTUUtilAPI.getTextManager().formatted(prefix + "&aEnable&f!"));
             ConfigManager.getInstance().initConfigFiles();
             registerEvent();
             setExecutor();
@@ -31,7 +31,7 @@ public final class RTUCommandControl extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info(RTUUtilAPI.getTextManager().colored(prefix + "&cDisable&f!"));
+        Bukkit.getLogger().info(RTUUtilAPI.getTextManager().formatted(prefix + "&cDisable&f!"));
     }
 
     protected void registerEvent() {
