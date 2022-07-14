@@ -1,7 +1,7 @@
 package com.github.ipecter.rtu.commandcontrol.listeners;
 
-import com.github.ipecter.rtu.commandcontrol.ConfigManager;
-import com.github.ipecter.rtu.util.Util;
+import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
+import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,7 +11,6 @@ import java.util.*;
 
 public class PlayerCommandPreprocess implements Listener {
 
-    private Util util = Util.getInstance();
     private ConfigManager configManager = ConfigManager.getInstance();
 
     @EventHandler
@@ -31,7 +30,7 @@ public class PlayerCommandPreprocess implements Listener {
         }
         if (!cmdListSet.contains(cmd)) {
             e.setCancelled(true);
-            player.sendMessage(util.formattedStr(player, configManager.getPrefix() + configManager.getNoPermission()));
+            player.sendMessage(RTUUtilAPI.getTextManager().formatted(player, configManager.getPrefix() + configManager.getNoPermission()));
         }
     }
 

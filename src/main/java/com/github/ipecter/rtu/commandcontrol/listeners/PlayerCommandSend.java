@@ -1,6 +1,6 @@
 package com.github.ipecter.rtu.commandcontrol.listeners;
 
-import com.github.ipecter.rtu.commandcontrol.ConfigManager;
+import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

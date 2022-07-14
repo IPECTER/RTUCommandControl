@@ -1,6 +1,7 @@
-package com.github.ipecter.rtu.commandcontrol;
+package com.github.ipecter.rtu.commandcontrol.managers;
 
-import com.github.ipecter.rtu.util.Util;
+import com.github.ipecter.rtu.commandcontrol.RTUCommandControl;
+import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -13,13 +14,12 @@ import java.util.Map;
 
 public class ConfigManager {
 
-    private Util util = Util.getInstance();
     private Plugin plugin = RTUCommandControl.getPlugin(RTUCommandControl.class);
     private boolean enablePlugin = true;
     private boolean motd = true;
     private String locale = "EN";
     private Map<String, List<String>> cmdList = Collections.synchronizedMap(new HashMap<>());
-    private String prefix = IridiumColorAPI.process("<GRADIENT:fcf003>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
+    private String prefix = IridiumColorAPI.process("<GRADIENT:9ba832>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
     private String reloadMsg = "";
     private String commandWrongUsage = "";
     private String noPermission = "";
@@ -96,9 +96,9 @@ public class ConfigManager {
     }
 
     public void initConfigFiles() {
-        initSetting(util.copyResource(plugin, "Setting.yml"));
-        initMessage(util.copyResource(plugin, "Translations", "Locale_" + locale + ".yml"));
-        initCommands(util.copyResource(plugin, "Commands.yml"));
+        initSetting(RTUUtilAPI.getFileManager().copyResource("Setting.yml"));
+        initMessage(RTUUtilAPI.getFileManager().copyResource("Translations", "Locale_" + locale + ".yml"));
+        initCommands(RTUUtilAPI.getFileManager().copyResource("Commands.yml"));
     }
 
     private void initSetting(File file) {
@@ -115,8 +115,8 @@ public class ConfigManager {
         commandWrongUsage = config.getString("commandWrongUsage");
         noPermission = config.getString("noPermission");
 
-        util.copyResource(plugin, "Translations", "Locale_EN.yml");
-        util.copyResource(plugin, "Translations", "Locale_KR.yml");
+        RTUUtilAPI.getFileManager().copyResource("Translations", "Locale_EN.yml");
+        RTUUtilAPI.getFileManager().copyResource("Translations", "Locale_KR.yml");
     }
 
     private void initCommands(File file) {
