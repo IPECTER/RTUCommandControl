@@ -14,6 +14,17 @@ import java.util.Map;
 
 public class ConfigManager {
 
+    public ConfigManager() {
+    }
+
+    public final static ConfigManager getInstance() {
+        return ConfigManager.InnerInstanceClass.instance;
+    }
+
+    private static class InnerInstanceClass {
+        private static final ConfigManager instance = new ConfigManager();
+    }
+
     private Plugin plugin = RTUCommandControl.getPlugin(RTUCommandControl.class);
     private boolean enablePlugin = true;
     private boolean motd = true;
@@ -23,13 +34,6 @@ public class ConfigManager {
     private String reloadMsg = "";
     private String commandWrongUsage = "";
     private String noPermission = "";
-
-    public ConfigManager() {
-    }
-
-    public final static ConfigManager getInstance() {
-        return ConfigManager.InnerInstanceClass.instance;
-    }
 
     public boolean isEnablePlugin() {
         return enablePlugin;
@@ -125,10 +129,5 @@ public class ConfigManager {
             cmdList.put(group, config.getConfigurationSection("commands").getStringList("." + group));
         }
     }
-
-    private static class InnerInstanceClass {
-        private static final ConfigManager instance = new ConfigManager();
-    }
-
 
 }
