@@ -30,7 +30,7 @@ public class ConfigManager {
     private boolean motd = true;
     private String locale = "EN";
     private Map<String, List<String>> cmdList = Collections.synchronizedMap(new HashMap<>());
-    private String prefix = IridiumColorAPI.process("<GRADIENT:9ba832>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
+    private String prefix = IridiumColorAPI.process("<GRADIENT:c0cc1f>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
     private String reloadMsg = "";
     private String commandWrongUsage = "";
     private String noPermission = "";
