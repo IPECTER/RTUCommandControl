@@ -1,7 +1,7 @@
 package com.github.ipecter.rtu.commandcontrol.commands;
 
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
-import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
+import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,14 +20,14 @@ public class Command implements CommandExecutor, TabCompleter {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             if (sender.hasPermission("rtucc.reload")) {
                 configManager.initConfigFiles();
-                sender.sendMessage(RTUUtilAPI.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getPrefix() + configManager.getReloadMsg()));
+                sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("reloadMsg")));
                 sync();
             } else {
-                sender.sendMessage(RTUUtilAPI.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getPrefix() + configManager.getNoPermission()));
+                sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
             }
             return true;
         } else {
-            sender.sendMessage(RTUUtilAPI.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getPrefix() + configManager.getCommandWrongUsage()));
+            sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("commandWrongUsage")));
             return true;
         }
     }

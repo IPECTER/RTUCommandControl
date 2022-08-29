@@ -5,20 +5,20 @@ import com.github.ipecter.rtu.commandcontrol.listeners.PlayerCommandPreprocess;
 import com.github.ipecter.rtu.commandcontrol.listeners.PlayerCommandSend;
 import com.github.ipecter.rtu.commandcontrol.listeners.PlayerJoin;
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
-import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
+import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RTUCommandControl extends JavaPlugin {
 
-    private String prefix = IridiumColorAPI.process("<GRADIENT:9ba832>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
+    private String prefix = IridiumColorAPI.process("<GRADIENT:becc1f>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
 
     @Override
     public void onEnable() {
         try {
-            RTUUtilAPI.init(this);
-            Bukkit.getLogger().info(RTUUtilAPI.getTextManager().formatted(prefix + "&aEnable&f!"));
+            RTUPluginLib.init(this);
+            Bukkit.getLogger().info(RTUPluginLib.getTextManager().formatted(prefix + "&aEnable&f!"));
             ConfigManager.getInstance().initConfigFiles();
             registerEvent();
             setExecutor();
@@ -31,7 +31,7 @@ public final class RTUCommandControl extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info(RTUUtilAPI.getTextManager().formatted(prefix + "&cDisable&f!"));
+        Bukkit.getLogger().info(RTUPluginLib.getTextManager().formatted(prefix + "&cDisable&f!"));
     }
 
     protected void registerEvent() {
@@ -50,7 +50,7 @@ public final class RTUCommandControl extends JavaPlugin {
 
     private void loadPAPI() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            RTUUtilAPI.getDependencyManager().setUsePAPI(true);
+            RTUPluginLib.getDependencyManager().setUsePAPI(true);
         }
     }
 }

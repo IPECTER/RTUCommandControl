@@ -1,7 +1,7 @@
 package com.github.ipecter.rtu.commandcontrol.listeners;
 
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
-import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
+import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +30,7 @@ public class PlayerCommandPreprocess implements Listener {
         }
         if (!cmdListSet.contains(cmd)) {
             e.setCancelled(true);
-            player.sendMessage(RTUUtilAPI.getTextManager().formatted(player, configManager.getPrefix() + configManager.getNoPermission()));
+            player.sendMessage(RTUPluginLib.getTextManager().formatted(player, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.github.ipecter.rtu.commandcontrol.listeners;
 
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
-import com.github.ipecter.rtu.utilapi.RTUUtilAPI;
+import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,10 +16,10 @@ public class PlayerJoin implements Listener {
         if (!configManager.isEnablePlugin()) return;
         Player player = e.getPlayer();
         if (configManager.isMotd()) {
-            player.sendMessage(RTUUtilAPI.getTextManager().formatted(player, configManager.getPrefix() + "&fRTU CommandControl developed by IPECTER"));
+            player.sendMessage(RTUPluginLib.getTextManager().formatted(player, configManager.getTranslation("prefix") + "&fRTU CommandControl developed by IPECTER"));
         } else {
             if (player.isOp())
-                player.sendMessage(RTUUtilAPI.getTextManager().formatted(player, configManager.getPrefix() + "&fRTU CommandControl developed by IPECTER"));
+                player.sendMessage(RTUPluginLib.getTextManager().formatted(player, configManager.getTranslation("prefix") + "&fRTU CommandControl developed by IPECTER"));
         }
     }
 }
