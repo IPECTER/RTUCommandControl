@@ -79,6 +79,7 @@ public class ConfigManager {
 
     private void initMessage(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        msgKeyMap.clear();
         for (String key : config.getKeys(false)) {
             if (key.equals("prefix")) {
                 msgKeyMap.put(key, config.getString("prefix", "").isEmpty() ? prefix : config.getString("prefix"));
@@ -93,8 +94,11 @@ public class ConfigManager {
 
     private void initCommands(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        for (String group : config.getConfigurationSection("commands").getKeys(false)) {
-            cmdList.put(group, config.getConfigurationSection("commands").getStringList("." + group));
+        if (config.getConfigurationSection("commands") != null) {
+            cmdList.clear();
+            for (String group : config.getConfigurationSection("commands").getKeys(false)) {
+                cmdList.put(group, config.getConfigurationSection("commands").getStringList("." + group));
+            }
         }
     }
 
