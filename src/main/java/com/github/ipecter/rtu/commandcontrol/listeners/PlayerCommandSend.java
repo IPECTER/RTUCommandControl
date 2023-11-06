@@ -6,11 +6,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class PlayerCommandSend implements Listener {
 
-    private ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager configManager = ConfigManager.getInstance();
 
     @EventHandler
     public void onSendCmd(PlayerCommandSendEvent e) {
@@ -20,8 +23,8 @@ public class PlayerCommandSend implements Listener {
 
         e.getCommands().clear();
 
-        Set<String> cmdListSet = Collections.synchronizedSet(new HashSet<>());
-        Map<String, List<String>> cmdListMap = ConfigManager.getInstance().getCmdList();
+        Set<String> cmdListSet = new HashSet<>();
+        Map<String, List<String>> cmdListMap = configManager.getCmdList();
         for (String group : cmdListMap.keySet()) {
             List<String> cmdList = cmdListMap.get(group);
             if (player.hasPermission("rtucc." + group) && !cmdList.isEmpty()) {

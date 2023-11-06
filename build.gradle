@@ -1,10 +1,11 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.freefair.lombok' version '8.4'
 }
 
 group = 'com.github.ipecter.rtu'
-version = '1.1.1'
+version = '1.2.0'
 
 ConfigurableFileTree libsImplementation = fileTree(dir: 'libs-implementation', include: ['*.jar'])
 
@@ -19,17 +20,28 @@ repositories {
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
     maven {
+        url = 'https://mvnrepository.com/artifact/org.projectlombok/lombok'
+    }
+
+    maven {
         url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
 }
 
 dependencies {
-    compileOnly 'me.clip:placeholderapi:2.11.2'
-    compileOnly 'org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    compileOnly "net.kyori:adventure-platform-bukkit:4.1.0"
+    compileOnly "net.kyori:adventure-text-minimessage:4.12.0"
+    compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
     implementation libsImplementation
+
+
+    compileOnly 'me.clip:placeholderapi:2.11.2'
 }
 
 def targetJavaVersion = 11
+
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

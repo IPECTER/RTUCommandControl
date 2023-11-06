@@ -2,16 +2,20 @@ package com.github.ipecter.rtu.commandcontrol.listeners;
 
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
 import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class PlayerCommandPreprocess implements Listener {
 
-    private ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager configManager = ConfigManager.getInstance();
 
     @EventHandler
     public void onPreprocessCmd(PlayerCommandPreprocessEvent e) {
@@ -20,8 +24,8 @@ public class PlayerCommandPreprocess implements Listener {
         if (player.hasPermission("rtucc.bypass.process")) return;
 
         String cmd = e.getMessage().replaceFirst("/", "").split(" ")[0];
-        Set<String> cmdListSet = Collections.synchronizedSet(new HashSet<>());
-        Map<String, List<String>> cmdListMap = ConfigManager.getInstance().getCmdList();
+        Set<String> cmdListSet = new HashSet<>();
+        Map<String, List<String>> cmdListMap = configManager.getCmdList();
         for (String group : cmdListMap.keySet()) {
             List<String> cmdList = cmdListMap.get(group);
             if (player.hasPermission("rtucc." + group) && !cmdList.isEmpty()) {
@@ -30,7 +34,8 @@ public class PlayerCommandPreprocess implements Listener {
         }
         if (!cmdListSet.contains(cmd)) {
             e.setCancelled(true);
-            player.sendMessage(RTUPluginLib.getTextManager().formatted(player, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
+            Audience audience = RTUPluginLib.adventure().player(player);
+            audience.sendMessage(RTUPluginLib.getTextManager().formatted(player, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
         }
     }
 

@@ -1,43 +1,51 @@
 package com.github.ipecter.rtu.commandcontrol.commands;
 
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
+import com.github.ipecter.rtu.pluginlib.CmdManager;
 import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
+import com.github.ipecter.rtu.pluginlib.managers.TextManager;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Command implements CommandExecutor, TabCompleter {
 
-    private ConfigManager configManager = ConfigManager.getInstance();
+    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final TextManager textManager = RTUPluginLib.getTextManager();
 
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            if (sender.hasPermission("rtucc.reload")) {
-                configManager.initConfigFiles();
-                sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("reloadMsg")));
-                sync();
-            } else {
-                sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
+    public boolean onCommand(@Nullable CommandSender sender, @Nullable org.bukkit.command.Command command, @Nullable String label, String[] args) {
+        CmdManager cmd = new CmdManager(sender, args);
+        Audience audience = cmd.getAudience();
+        switch (cmd.args(0)) {
+            case "reload": {
+                if (cmd.permission("rtucc.reload")) {
+                    configManager.initConfigFiles();
+                    sync();
+                    audience.sendMessage(textManager.formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("reloadMsg")));
+                } else {
+                    audience.sendMessage(textManager.formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("noPermission")));
+                }
+                return true;
             }
-            return true;
-        } else {
-            sender.sendMessage(RTUPluginLib.getTextManager().formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("commandWrongUsage")));
-            return true;
+            default: {
+                audience.sendMessage(textManager.formatted(sender instanceof Player ? (Player) sender : null, configManager.getTranslation("prefix") + configManager.getTranslation("commandWrongUsage")));
+                return true;
+            }
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args) {
-        if (args.length == 1 && sender.hasPermission("rtucc.reload")) {
-            return Arrays.asList("reload");
-        }
-        return Arrays.asList();
+        CmdManager cmd = new CmdManager(sender, args);
+        if (cmd.permission("rtucc.reload")) cmd.tab(0, "reload");
+        return cmd.tabList();
     }
 
     private void sync() {

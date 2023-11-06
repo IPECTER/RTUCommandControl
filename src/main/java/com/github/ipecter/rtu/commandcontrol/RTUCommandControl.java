@@ -6,41 +6,41 @@ import com.github.ipecter.rtu.commandcontrol.listeners.PlayerCommandSend;
 import com.github.ipecter.rtu.commandcontrol.listeners.PlayerJoin;
 import com.github.ipecter.rtu.commandcontrol.managers.ConfigManager;
 import com.github.ipecter.rtu.pluginlib.RTUPluginLib;
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import com.github.ipecter.rtu.pluginlib.managers.TextManager;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RTUCommandControl extends JavaPlugin {
 
-    private String prefix = IridiumColorAPI.process("<GRADIENT:becc1f>[ RTUCommandControl ]</GRADIENT:a3a3a3> ");
+    public static final Component prefix = RTUPluginLib.getTextManager().colored("<gradient:#becc1f:#a3a3a3>[ RTUCommandControl ]</gradient> ");
+
+    private final TextManager textManager = RTUPluginLib.getTextManager();
+    private final Audience console = RTUPluginLib.adventure().sender(Bukkit.getConsoleSender());
 
     @Override
     public void onEnable() {
-        try {
-            RTUPluginLib.init(this);
-            Bukkit.getLogger().info(RTUPluginLib.getTextManager().formatted(prefix + "&aEnable&f!"));
-            ConfigManager.getInstance().initConfigFiles();
-            registerEvent();
-            setExecutor();
-            loadDependencies();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        RTUPluginLib.init(this);
+        console.sendMessage(prefix.append(textManager.colored("<green>Enable</green>")));
+        ConfigManager.getInstance().initConfigFiles();
+        registerEvent();
+        setExecutor();
+        loadDependencies();
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info(RTUPluginLib.getTextManager().formatted(prefix + "&cDisable&f!"));
+        console.sendMessage(prefix.append(textManager.colored("<red>Disble</red>")));
     }
 
-    protected void registerEvent() {
+    private void registerEvent() {
         Bukkit.getPluginManager().registerEvents(new PlayerCommandSend(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocess(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), this);
     }
 
-    protected void setExecutor() {
+    private void setExecutor() {
         getCommand("rtucc").setExecutor(new Command());
     }
 
@@ -49,8 +49,6 @@ public final class RTUCommandControl extends JavaPlugin {
     }
 
     private void loadPAPI() {
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            RTUPluginLib.getDependencyManager().setUsePAPI(true);
-        }
+        RTUPluginLib.hookDependency("PlaceholderAPI", Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"));
     }
 }
