@@ -17,11 +17,11 @@ public final class RTUCommandControl extends JavaPlugin {
     public static final Component prefix = RTUPluginLib.getTextManager().colored("<gradient:#becc1f:#a3a3a3>[ RTUCommandControl ]</gradient> ");
 
     private final TextManager textManager = RTUPluginLib.getTextManager();
-    private final Audience console = RTUPluginLib.adventure().sender(Bukkit.getConsoleSender());
 
     @Override
     public void onEnable() {
         RTUPluginLib.init(this);
+        Audience console = RTUPluginLib.adventure().sender(Bukkit.getConsoleSender());
         console.sendMessage(prefix.append(textManager.colored("<green>Enable</green>")));
         ConfigManager.getInstance().initConfigFiles();
         registerEvent();
@@ -31,7 +31,9 @@ public final class RTUCommandControl extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Audience console = RTUPluginLib.adventure().sender(Bukkit.getConsoleSender());
         console.sendMessage(prefix.append(textManager.colored("<red>Disble</red>")));
+        RTUPluginLib.disable();
     }
 
     private void registerEvent() {

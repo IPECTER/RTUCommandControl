@@ -19,6 +19,10 @@ public class Command implements CommandExecutor, TabCompleter {
     private final ConfigManager configManager = ConfigManager.getInstance();
     private final TextManager textManager = RTUPluginLib.getTextManager();
 
+    public Command() {
+        Bukkit.getCommandAliases().
+    }
+
     @Override
     public boolean onCommand(@Nullable CommandSender sender, @Nullable org.bukkit.command.Command command, @Nullable String label, String[] args) {
         CmdManager cmd = new CmdManager(sender, args);
